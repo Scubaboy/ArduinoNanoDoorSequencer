@@ -1,10 +1,10 @@
 #pragma once
 
-class PWMController
+class PWMInputController
 {
   public:
     void Init();
-    PWMController(int rcInputPin);
+    PWMInputController(int rcInputPin);
     int PWMPulseDuration();
   private:
     int rcInputPin;

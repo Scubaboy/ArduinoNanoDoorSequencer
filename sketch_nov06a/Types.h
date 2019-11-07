@@ -14,6 +14,10 @@ namespace RetractTypes
     };
 }
 
+namespace PWMInputTypes
+{
+  const int RCRetractPWMInputPin = 8;  
+}
 
 namespace ServoRawTypes
 {

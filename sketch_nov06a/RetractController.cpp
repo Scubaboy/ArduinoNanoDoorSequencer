@@ -1,8 +1,8 @@
 #include "RetractController.h"
 
-RetractController::RetractController (PWMController* pwmController)
+RetractController::RetractController (PWMInputController* pwmInputController)
 {
-  this->pwmController = pwmController;
+  this->pwmInputController = pwmInputController;
 }
 
 void RetractController::ProcessRetractAction(RetractAction* action)
@@ -12,9 +12,9 @@ void RetractController::ProcessRetractAction(RetractAction* action)
 
 RetractTypes::RetractPosition RetractController::RetractPosition()
 {
-  if (this->pwmController != 0)
+  if (this->pwmInputController != 0)
   {
-    int pulseDuration = this->pwmController->PWMPulseDuration();
+    int pulseDuration = this->pwmInputController->PWMPulseDuration();
 
     if (pulseDuration >= ServoRawTypes::ServoUp)
     {
