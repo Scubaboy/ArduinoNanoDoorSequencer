@@ -5,10 +5,10 @@
 #include "RetractController.h"
 #include "Logger.h"
 
+Logger logger;
 ServoController servoController;
 PWMInputController pwmInputController(PWMInputTypes::RCRetractPWMInputPin);
-RetractController retractController(&pwmInputController);
-Logger logger;
+RetractController retractController(&pwmInputController, &logger);
 
 void setup() {
   // put your setup code here, to run once:
@@ -21,11 +21,11 @@ void loop() {
   
   if (requestedPosition == RetractTypes::Up)
   {
-    logger.Log("Retract Up");
+    
   }
   else if ( requestedPosition == RetractTypes::Down)
   {
-    logger.Log("Retract Down");
+    
   }
 
   
