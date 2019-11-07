@@ -11,4 +11,5 @@ class OpenRightRearWheelDoorAction : public RetractAction
     int duration;
     PWMController* pwmController;
     int pin;
+    int pulseLength;
 }

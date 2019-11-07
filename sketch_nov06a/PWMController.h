@@ -4,11 +4,8 @@ class PWMController
 {
   public:
     void Init();
-    PWMController(int rcInputPin, int outputPins[6]);
+    PWMController(int rcInputPin);
     int PWMPulseDuration();
-    
-    
   private:
     int rcInputPin;
-    int outputPins[6];
 };
