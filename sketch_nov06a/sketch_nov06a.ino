@@ -4,15 +4,18 @@
 #include "Types.h"
 #include "RetractController.h"
 #include "Logger.h"
+#include "OpenRearWheelDoorsGrpAction.h"
 
 Logger logger;
 ServoController servoController;
+OpenRearWheelDoorsGrpAction openRearWheelDoorsGrpAction(&servoController);
 PWMInputController pwmInputController(PWMInputTypes::RCRetractPWMInputPin);
 RetractController retractController(&pwmInputController, &logger);
 
 void setup() {
   // put your setup code here, to run once:
   pinMode(LED_BUILTIN,OUTPUT);
+  pwmInputController.Init();
 }
 
 void loop() {
@@ -21,17 +24,10 @@ void loop() {
   
   if (requestedPosition == RetractTypes::Up)
   {
-    
+    retractController.ProcessRetractGroupAction(&openRearWheelDoorsGrpAction);
   }
   else if ( requestedPosition == RetractTypes::Down)
   {
-    
+    retractController.ProcessRetractGroupAction(&openRearWheelDoorsGrpAction);
   }
-
-  
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay (100);
-  
 }

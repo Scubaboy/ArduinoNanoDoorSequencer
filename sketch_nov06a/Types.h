@@ -16,13 +16,13 @@ namespace RetractTypes
 
 namespace PWMInputTypes
 {
-  const int RCRetractPWMInputPin = 8;  
+  const int RCRetractPWMInputPin = 2;  
 }
 
 namespace ServoRawTypes
 {
-    const int ServoDown = 1000;
-    const int ServoUp = 2000;
+    const int ServoDown = 980;
+    const int ServoUp = 1800;
 
     enum ServoOutputPins 
     {

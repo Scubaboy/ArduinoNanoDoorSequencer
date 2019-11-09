@@ -16,5 +16,6 @@ class RetractController
 
   PWMInputController* pwmInputController;
   Logger* logger;
+  RetractTypes::RetractPosition lastPosition;
   
 };

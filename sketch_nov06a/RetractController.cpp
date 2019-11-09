@@ -5,6 +5,7 @@ RetractController::RetractController (PWMInputController* pwmInputController, Lo
 {
   this->pwmInputController = pwmInputController;
   this->logger = logger;
+  this->lastPosition = RetractTypes::UnDefined;
 }
 
 void RetractController::ProcessRetractAction(RetractAction* action)
@@ -12,30 +13,46 @@ void RetractController::ProcessRetractAction(RetractAction* action)
   action->Execute();
 }
 
+void RetractController::ProcessRetractGroupAction(RetractGroupAction* action)
+{
+  action->Execute();
+}
+
 RetractTypes::RetractPosition RetractController::RetractPosition()
 {
-  char pulseDurationNotification[90] = {'\0'};
-  
   if (this->pwmInputController != 0)
-  {
+  {    
     int pulseDuration = this->pwmInputController->PWMPulseDuration();
-
-    sprintf(pulseDurationNotification,"Retract::RetractPosition -> rcPWMInput Pulse Duration %d",pulseDuration);
-    this->logger->Log(pulseDurationNotification);
     
     if (pulseDuration >= ServoRawTypes::ServoUp)
     {
-        this->logger->Log("RetractController::RetractPostion -> rcPWMInput Up Requested");
+        if (this->lastPosition != RetractTypes::Up)
+        {
+          this->logger->Log("RetractController::RetractPostion -> rcPWMInput Up Requested");
+          this->lastPosition = RetractTypes::Up;
+        }
+        
         return RetractTypes::Up;
     }
-    else if (pulseDuration <= ServoRawTypes::ServoDown && pulseDuration > 0)
+    else if (pulseDuration <= ServoRawTypes::ServoDown)
     {
-        this->logger->Log("RetractController::RetractPostion -> rcPWMInput Down Requested");
+        if (this->lastPosition != RetractTypes::Down)
+        {
+          this->logger->Log("RetractController::RetractPostion -> rcPWMInput Down Requested");
+          this->lastPosition = RetractTypes::Down;
+        }
+        
         return RetractTypes::Down;
     }
-
-    this->logger->Log("RetractController::RetractPostion -> rcPWMInput Not Detected!");
-    return RetractTypes::UnDefined;
+    else
+    {
+      if (this->lastPosition != RetractTypes::UnDefined)
+      {
+        this->logger->Log("RetractController::RetractPostion -> rcPWMInput Middle Detected!");
+        this->lastPosition = RetractTypes::UnDefined;
+      }
+      return RetractTypes::UnDefined;
+    }
   }
 
   return RetractTypes::UnDefined;
