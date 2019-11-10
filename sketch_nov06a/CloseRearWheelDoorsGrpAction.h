@@ -2,12 +2,12 @@
 #include "RetractGroupAction.h"
 #include "ServoController.h"
 
-class OpenRearWheelDoorsGrpAction : public RetractGroupAction
+class CloseRearWheelDoorsGrpAction : public RetractGroupAction
 {
   public:
-    OpenRearWheelDoorsGrpAction(ServoController* servoController);
+    CloseRearWheelDoorsGrpAction(ServoController* servoController);
     void Execute();
   private:
     ServoController* servoController;
-    const int SetPoint = 180;
+    const int SetPoint = 0;
 };

@@ -1,11 +1,16 @@
 #pragma once
 #include <Servo.h>
+#include "Logger.h"
+#include "Types.h"
 
 class ServoController
 {
   public:
-    ServoController();
-    void SetServoPosition();
+    ServoController(Logger* logger);
+    void Init();
+    void SetServoPosition(ServoRawTypes::ServoIndexIds servoId, int newPos);
   private:
-   Servo servoHwdController;
+   Servo servoHwdController[6];
+   bool isInit;
+   Logger* logger;
 };

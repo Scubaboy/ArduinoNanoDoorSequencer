@@ -24,13 +24,23 @@ namespace ServoRawTypes
     const int ServoDown = 980;
     const int ServoUp = 1800;
 
+    enum ServoIndexIds
+    {
+      ServoIndex1 = 0,
+      ServoIndex2 = 1,
+      ServoIndex3 = 2,
+      ServoIndex4 = 3,
+      ServoIndex5 = 4,
+      ServoIndex6 = 5
+    };
+    
     enum ServoOutputPins 
     {
-      Servo1 = 2,
-      Servo2 = 3,
-      Servo3 = 4,
-      Servo4 = 5,
-      Servo5 = 6,
-      Servo6 = 7
+      Servo1 = 3,
+      Servo2 = 4,
+      Servo3 = 5,
+      Servo4 = 6,
+      Servo5 = 7,
+      Servo6 = 8
     };
 }
