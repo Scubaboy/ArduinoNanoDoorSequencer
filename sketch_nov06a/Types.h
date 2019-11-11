@@ -21,7 +21,7 @@ namespace PWMInputTypes
 
 namespace ServoRawTypes
 {
-    const int ServoDown = 980;
+    const int ServoDown = 1000;
     const int ServoUp = 1800;
 
     enum ServoIndexIds

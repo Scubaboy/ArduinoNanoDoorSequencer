@@ -28,5 +28,10 @@ void StateController::UpdateLastRetractPosition(RetractTypes::RetractPosition re
 
 bool StateController::IsSynched(RetractTypes::RetractPosition retractPosition)
 {
-  
+  return retractPosition == this->currentState.LastRetractPosition;
+}
+
+SystemState::ServoAttributes* StateController::GetServoAttributes()
+{
+  return this->currentState.servoAttributes;
 }

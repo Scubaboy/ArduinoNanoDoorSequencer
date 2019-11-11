@@ -7,6 +7,7 @@ class StateController
     void Init();
     RetractTypes::RetractPosition RequestLastRetractPosition();
     void UpdateLastRetractPosition(RetractTypes::RetractPosition retractPosition);
+    SystemState::ServoAttributes* GetServoAttributes();
     bool IsSynched(RetractTypes::RetractPosition retractPosition);
   private:
      SystemState::State currentState; 

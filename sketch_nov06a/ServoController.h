@@ -7,7 +7,7 @@ class ServoController
 {
   public:
     ServoController(Logger* logger);
-    void Init();
+    void Init(SystemState::ServoAttributes servoAttributes[6], RetractTypes::RetractPosition lastRetractPosition);
     void SetServoPosition(ServoRawTypes::ServoIndexIds servoId, int newPos);
   private:
    Servo servoHwdController[6];
