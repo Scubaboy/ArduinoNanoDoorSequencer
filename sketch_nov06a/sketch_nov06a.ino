@@ -6,7 +6,9 @@
 #include "Logger.h"
 #include "OpenRearWheelDoorsGrpAction.h"
 #include "CloseRearWheelDoorsGrpAction.h"
+#include "StateController.h"
 
+StateController stateController;
 Logger logger;
 ServoController servoController(&logger);
 OpenRearWheelDoorsGrpAction openRearWheelDoorsGrpAction(&servoController);
@@ -20,21 +22,26 @@ void setup() {
   pinMode(LED_BUILTIN,OUTPUT);
   pwmInputController.Init();
   servoController.Init();
+  stateController.Init();
   lastPosition = RetractTypes::UnDefined;
 }
 
 void loop() {
+
   // put your main code here, to run repeatedly:
   RetractTypes::RetractPosition requestedPosition = retractController.RetractPosition();
   
-  if (requestedPosition == RetractTypes::Up && lastPosition != requestedPosition)
-  {
-    retractController.ProcessRetractGroupAction(&closeRearWheelDoorsGrpAction);
-    lastPosition = requestedPosition;
-  }
-  else if ( requestedPosition == RetractTypes::Down & lastPosition != requestedPosition)
-  {
-    retractController.ProcessRetractGroupAction(&openRearWheelDoorsGrpAction);
-    lastPosition = requestedPosition;
+  if (stateController.IsSynched(requestedPosition))
+  {    
+    if (requestedPosition == RetractTypes::Up && stateController.RequestLastRetractPosition() != requestedPosition)
+    {
+      retractController.ProcessRetractGroupAction(&closeRearWheelDoorsGrpAction);
+      stateController.UpdateLastRetractPosition(requestedPosition);
+    }
+    else if ( requestedPosition == RetractTypes::Down & stateController.RequestLastRetractPosition() != requestedPosition)
+    {
+      retractController.ProcessRetractGroupAction(&openRearWheelDoorsGrpAction);
+      stateController.UpdateLastRetractPosition(requestedPosition);
+    }
   }
 }

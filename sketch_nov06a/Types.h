@@ -44,3 +44,20 @@ namespace ServoRawTypes
       Servo6 = 8
     };
 }
+
+namespace SystemState
+{
+  struct ServoAttributes
+  {
+    int MaxAngle;
+    int MinAngle;
+    int DegPerSecond;
+  };
+  
+  struct State
+  {
+    float Version;
+    RetractTypes::RetractPosition LastRetractPosition;
+    ServoAttributes servoAttributes[6];
+  };
+}
