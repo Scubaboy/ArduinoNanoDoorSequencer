@@ -2,10 +2,10 @@
 #include "RetractGroupAction.h"
 #include "ServoController.h"
 
-class CloseRearWheelDoorsGrpAction : public RetractGroupAction
+class CloseWheelDoorsGrpAction : public RetractGroupAction
 {
   public:
-    CloseRearWheelDoorsGrpAction(ServoController* servoController);
+    CloseWheelDoorsGrpAction(ServoController* servoController);
     void Execute();
   private:
     ServoController* servoController;

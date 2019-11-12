@@ -1,13 +1,13 @@
-#include "CloseRearWheelDoorsGrpAction.h"
+#include "CloseWheelDoorsGrpAction.h"
 #include "Types.h"
 #include "Arduino.h"
 
-CloseRearWheelDoorsGrpAction::CloseRearWheelDoorsGrpAction(ServoController* servoController)
+CloseWheelDoorsGrpAction::CloseWheelDoorsGrpAction(ServoController* servoController)
 {
   this->servoController= servoController;
 }
 
-void CloseRearWheelDoorsGrpAction::Execute()
+void CloseWheelDoorsGrpAction::Execute()
 {
   int step = 180;
   

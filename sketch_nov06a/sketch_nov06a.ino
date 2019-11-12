@@ -4,15 +4,19 @@
 #include "Types.h"
 #include "RetractController.h"
 #include "Logger.h"
-#include "OpenRearWheelDoorsGrpAction.h"
-#include "CloseRearWheelDoorsGrpAction.h"
+#include "OpenWheelDoorsGrpAction.h"
+#include "CloseWheelDoorsGrpAction.h"
 #include "StateController.h"
+#include "DeployLandingGearGrpAction.h"
+#include "RetractLandingGearGrpAction.h"
 
 StateController stateController;
 Logger logger;
 ServoController servoController(&logger);
-OpenRearWheelDoorsGrpAction openRearWheelDoorsGrpAction(&servoController);
-CloseRearWheelDoorsGrpAction closeRearWheelDoorsGrpAction(&servoController);
+OpenWheelDoorsGrpAction openWheelDoorsGrpAction(&servoController);
+CloseWheelDoorsGrpAction closeWheelDoorsGrpAction(&servoController);
+DeployLandingGearGrpAction deploylandingGearGrpAction(&servoController);
+RetractLandingGearGrpAction retractLandingGearGrpAction(&servoController);
 PWMInputController pwmInputController(PWMInputTypes::RCRetractPWMInputPin);
 RetractController retractController(&pwmInputController, &logger);
 RetractTypes::RetractPosition lastPosition;
@@ -41,12 +45,14 @@ void loop() {
   { 
     if (requestedPosition == RetractTypes::Up && stateController.RequestLastRetractPosition() != requestedPosition)
     {
-        retractController.ProcessRetractGroupAction(&closeRearWheelDoorsGrpAction);
+        retractController.ProcessRetractGroupAction(&retractLandingGearGrpAction);
+        retractController.ProcessRetractGroupAction(&closeWheelDoorsGrpAction);
         stateController.UpdateLastRetractPosition(requestedPosition);
     }
     else if ( requestedPosition == RetractTypes::Down & stateController.RequestLastRetractPosition() != requestedPosition)
     {
-        retractController.ProcessRetractGroupAction(&openRearWheelDoorsGrpAction);
+        retractController.ProcessRetractGroupAction(&openWheelDoorsGrpAction);
+        retractController.ProcessRetractGroupAction(&deploylandingGearGrpAction);
         stateController.UpdateLastRetractPosition(requestedPosition);
     }
   }
