@@ -13,11 +13,6 @@ void RetractController::ProcessRetractAction(RetractAction* action)
   action->Execute();
 }
 
-void RetractController::ProcessRetractGroupAction(RetractGroupAction* action)
-{
-  action->Execute();
-}
-
 RetractTypes::RetractPosition RetractController::RetractPosition()
 {
   if (this->pwmInputController != 0)

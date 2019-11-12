@@ -1,11 +1,11 @@
 #pragma once
-#include "RetractGroupAction.h"
+#include "RetractAction.h"
 #include "ServoController.h"
 
-class OpenWheelDoorsGrpAction : public RetractGroupAction
+class OpenWheelDoorsAction : public RetractAction
 {
   public:
-    OpenWheelDoorsGrpAction(ServoController* servoController);
+    OpenWheelDoorsAction(ServoController* servoController);
     void Execute();
   private:
     ServoController* servoController;

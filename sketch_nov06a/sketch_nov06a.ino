@@ -4,19 +4,19 @@
 #include "Types.h"
 #include "RetractController.h"
 #include "Logger.h"
-#include "OpenWheelDoorsGrpAction.h"
-#include "CloseWheelDoorsGrpAction.h"
+#include "OpenWheelDoorsAction.h"
+#include "CloseWheelDoorsAction.h"
 #include "StateController.h"
-#include "DeployLandingGearGrpAction.h"
-#include "RetractLandingGearGrpAction.h"
+#include "DeployLandingGearAction.h"
+#include "RetractLandingGearAction.h"
 
 StateController stateController;
 Logger logger;
 ServoController servoController(&logger);
-OpenWheelDoorsGrpAction openWheelDoorsGrpAction(&servoController);
-CloseWheelDoorsGrpAction closeWheelDoorsGrpAction(&servoController);
-DeployLandingGearGrpAction deploylandingGearGrpAction(&servoController);
-RetractLandingGearGrpAction retractLandingGearGrpAction(&servoController);
+OpenWheelDoorsAction openWheelDoorsAction(&servoController);
+CloseWheelDoorsAction closeWheelDoorsAction(&servoController);
+DeployLandingGearAction deploylandingGearAction(&servoController);
+RetractLandingGearAction retractLandingGearAction(&servoController);
 PWMInputController pwmInputController(PWMInputTypes::RCRetractPWMInputPin);
 RetractController retractController(&pwmInputController, &logger);
 RetractTypes::RetractPosition lastPosition;
@@ -42,17 +42,19 @@ void loop() {
     isSynched = stateController.IsSynched(requestedPosition);
   }
   else
-  { 
+  {     
     if (requestedPosition == RetractTypes::Up && stateController.RequestLastRetractPosition() != requestedPosition)
     {
-        retractController.ProcessRetractGroupAction(&retractLandingGearGrpAction);
-        retractController.ProcessRetractGroupAction(&closeWheelDoorsGrpAction);
+        retractController.ProcessRetractAction(&openWheelDoorsAction);
+        retractController.ProcessRetractAction(&retractLandingGearAction);
+        retractController.ProcessRetractAction(&closeWheelDoorsAction);
         stateController.UpdateLastRetractPosition(requestedPosition);
     }
     else if ( requestedPosition == RetractTypes::Down & stateController.RequestLastRetractPosition() != requestedPosition)
     {
-        retractController.ProcessRetractGroupAction(&openWheelDoorsGrpAction);
-        retractController.ProcessRetractGroupAction(&deploylandingGearGrpAction);
+        retractController.ProcessRetractAction(&openWheelDoorsAction);
+        retractController.ProcessRetractAction(&deploylandingGearAction);
+        retractController.ProcessRetractAction(&closeWheelDoorsAction);
         stateController.UpdateLastRetractPosition(requestedPosition);
     }
   }

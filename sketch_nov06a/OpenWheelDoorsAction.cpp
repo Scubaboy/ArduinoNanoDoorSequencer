@@ -1,13 +1,13 @@
-#include "OpenWheelDoorsGrpAction.h"
+#include "OpenWheelDoorsAction.h"
 #include "Types.h"
 #include "Arduino.h"
 
-OpenWheelDoorsGrpAction::OpenWheelDoorsGrpAction(ServoController* servoController)
+OpenWheelDoorsAction::OpenWheelDoorsAction(ServoController* servoController)
 {
   this->servoController= servoController;
 }
 
-void OpenWheelDoorsGrpAction::Execute()
+void OpenWheelDoorsAction::Execute()
 {
   int tick = 0;
   
