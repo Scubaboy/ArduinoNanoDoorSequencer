@@ -36,7 +36,8 @@ void loop() {
 
   // put your main code here, to run repeatedly:
   RetractTypes::RetractPosition requestedPosition = retractController.RetractPosition();
-
+  
+  //Can only start when synched with previous saved state.  
   if (!isSynched)
   {
     isSynched = stateController.IsSynched(requestedPosition);
